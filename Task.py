@@ -61,3 +61,67 @@ def calculate_finances(annual_salary, tax_percent, monthly_rent, savings_percent
         "annual_savings": savings_amount * 12,
         "annual_rent": monthly_rent * 12,
     }
+def generate_report(name, annual_salary, tax_percent, savings_percent, monthly_rent, finance_data):
+    """
+    Generates and prints formatted financial summary report.
+    """
+
+    print("═" * 44)
+    print("EMPLOYEE FINANCIAL SUMMARY")
+    print("═" * 44)
+
+    print(f"Employee : {name}")
+    print(f"Annual Salary : ₹{annual_salary:,.2f}")
+
+    print("─" * 44)
+    print("Monthly Breakdown:")
+
+    print(f"Gross Salary : ₹ {finance_data['monthly_salary']:,.2f}")
+    print(f"Tax ({tax_percent}%) : ₹ {finance_data['monthly_tax']:,.2f}")
+    print(f"Net Salary : ₹ {finance_data['net_salary']:,.2f}")
+    print(
+        f"Rent : ₹ {monthly_rent:,.2f} "
+        f"({finance_data['rent_ratio']:.1f}% of net)"
+    )
+    print(
+        f"Savings ({savings_percent}%) : "
+        f"₹ {finance_data['savings_amount']:,.2f}"
+    )
+    print(f"Disposable : ₹ {finance_data['disposable_income']:,.2f}")
+
+    print("─" * 44)
+    print("Annual Projection:")
+
+    print(f"Total Tax : ₹ {finance_data['annual_tax']:,.2f}")
+    print(f"Total Savings : ₹ {finance_data['annual_savings']:,.2f}")
+    print(f"Total Rent : ₹ {finance_data['annual_rent']:,.2f}")
+
+    print("═" * 44)
+
+def main():
+    """
+    Main execution function.
+    """
+    name, annual_salary, tax_percent, monthly_rent, savings_percent = get_employee_data()
+
+    validate_inputs(annual_salary, tax_percent, monthly_rent, savings_percent)
+
+    finance_data = calculate_finances(
+        annual_salary,
+        tax_percent,
+        monthly_rent,
+        savings_percent
+    )
+
+    generate_report(
+        name,
+        annual_salary,
+        tax_percent,
+        savings_percent,
+        monthly_rent,
+        finance_data
+    )
+
+
+if __name__ == "__main__":
+    main()
